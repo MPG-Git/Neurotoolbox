@@ -1,0 +1,11 @@
+data: TEPSData.csv
+outdir: outputs_asym
+roi_pairs:
+  - lcaud:rcaud
+  - lput:rput
+  - lNACC:rNACC
+  - lamyg:ramyg
+outcomes: [tepanticip, tepsconsum]
+covars: [age, gender, estICV]
+normative: linear  # none | linear | gpr
+composite: true

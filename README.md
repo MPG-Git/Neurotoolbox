@@ -2,6 +2,7 @@
 
 A modular, **dataset-agnostic** toolkit for brain–behavior analyses (EEG/fMRI ROI features + behavioral outcomes).  
 It refactors a long, lab-specific script into a reusable package with clear modules, CLI entry points, logging, and reproducible outputs.
+CSV spreadsheet input for easy integration across labs and datasets.
 
 ## Features
 

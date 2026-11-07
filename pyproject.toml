@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "neurotoolbox"
-version = "0.1.0"
+version = "0.1.1"
 description = "Generalizable brain–behavior analysis toolkit (asymmetry, normative modeling, multivariate, networks)."
-authors = [{name="You"}]
+authors = [{name="Matthew P. Gunn"}]
 license = {text = "MIT"}
 requires-python = ">=3.9"
 dependencies = [
@@ -24,4 +24,5 @@ dependencies = [
 neurotoolbox = ["py.typed"]
 
 [tool.setuptools.packages.find]
-where = ["neurotoolbox"]
+where = ["."]
+include = ["neurotoolbox*"]

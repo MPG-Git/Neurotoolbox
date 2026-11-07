@@ -19,9 +19,10 @@ CSV spreadsheet input for easy integration across labs and datasets.
 
 ```bash
 # recommended: in a fresh virtual environment
-pip install -r requirements.txt
-# (optional) install the package in editable mode
-pip install -e .
+python -m pip install .
+# For development and the regression/CLI checks:
+python -m pip install pytest
+python -m pytest -q
 ```
 
 ## Data expectations
@@ -30,6 +31,11 @@ Your CSV can use **any column names**. You specify:
 - Behavioral outcomes: e.g., `--outcomes tepanticip tepsconsum`
 - ROI left/right pairs: e.g., `--roi-pairs lNACC:rNACC lcaud:rcaud`
 - Covariates: e.g., `--covars age gender estICV`
+
+Inputs must be numeric (encode categorical covariates before analysis). The
+GPR option currently requires complete data in its selected ROI/covariate
+columns. The other examples drop incomplete cases in the selected analysis
+columns; plan missing-data handling before comparing models or cohorts.
 
 ## Quick starts
 
@@ -88,6 +94,21 @@ neurotoolbox/
 ```
 
 ## Notes
+
+This is a standalone Python package for tabular data, not an EEGLAB plugin.
+Export subject-level features to CSV before using it. Python 3.12 is the
+tested environment. Normative deviations currently fit and evaluate on the
+same input cohort; they are descriptive residuals, not out-of-sample clinical
+reference scores. Validate the design and covariates for your own study.
+
+Network significance requires participant counts. Matrices returned by
+`structural_covariance(data)` retain pairwise counts; for a complete-case
+matrix loaded from CSV use `fdr_edges(R, n_samples=number_of_participants)`.
+
+PLS/CCA permutation tests refit the latent model for each permutation of the
+behavioral rows. They assume exchangeable, independent participants and are
+not a substitute for held-out prediction or a study-specific permutation
+scheme. Signed graph summaries are exploratory; modularity can be undefined.
 
 - All regressions are **standardized** by default (X and y), and we report standardized β.
 - FDR/BH and Bonferroni are applied **within each (Outcome × Model)** family.

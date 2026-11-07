@@ -51,7 +51,7 @@ def main():
     log.info("PLS r=%.3f, p=%.3f", pls_out["r"], pls_out["p"])
 
     # CCA (optional)
-    if args.do-cca:
+    if args.do_cca:
         log.info("Running CCA...")
         cca_out = run_cca(roi_df, items_df, n_components=1, outdir=args.outdir, prefix="CCA")
         log.info("CCA r=%.3f, p=%.3f", cca_out["r"], cca_out["p"])
@@ -65,7 +65,7 @@ def main():
     edges = fdr_edges(R)
     edges.to_csv(os.path.join(args.outdir, "StructuralCovariance_edges_FDR.csv"), index=False)
 
-    G = build_graph(edges[edges["keep"]])
+    G = build_graph(edges[edges["keep"]], nodes=R.columns)
     plot_graph(G, outpath=os.path.join(args.outdir, "Network_Graph.png"))
     nm = node_metrics(G); nm.to_csv(os.path.join(args.outdir, "Network_NodeMetrics.csv"), index=False)
     gm = global_metrics(G); gm.to_csv(os.path.join(args.outdir, "Network_GlobalMetrics.csv"), index=False)
